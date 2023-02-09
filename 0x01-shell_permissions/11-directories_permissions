@@ -1,2 +1,2 @@
-for dir in $(find . -type d)
-do chmod u+x,g+x,o+x "$dir"
+#!/bin/bash
+chmod -R +X .
