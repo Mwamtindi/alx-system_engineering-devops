@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# Displays contents of 'PWD' in list format displaying only the part after
+
+li="$(ls)"
+
+for y in $li
+do
+	echo "$y" |  cut -f 2 -d '-'
+done
