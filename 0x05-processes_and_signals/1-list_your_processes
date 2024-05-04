@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Bash script that display  List of current running processes
+# Must show all the processes for all users inc those without TTY
+
+ps -aufx
