@@ -1,7 +1,5 @@
-# A Puppet manifest that install flask package from pip3
+# Puppet that install flask from pip3
 package { 'flask':
   ensure   => '2.1.0',
   provider => 'pip3',
-  name     => 'flask',
-  command  => '/usr/bin/pip3',
 }
