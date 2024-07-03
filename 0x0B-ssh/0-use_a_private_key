@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+# A bash script that uses ssh to connect to a server using the private key
+and the user ubuntu
+
+# Define the server address
+server_address="228444-web-01"
+
+# Use ssh with the -i flag for the identity file, -o flag for options
+ssh -i ~/.ssh/school -o StrictHostKeyChecking=no ubuntu@$server_address
