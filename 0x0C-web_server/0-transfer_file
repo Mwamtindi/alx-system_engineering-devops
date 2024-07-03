@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # A bash script that transfers a file from client to a server
 
 # Fxn to display the usage message
