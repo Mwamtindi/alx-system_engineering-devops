@@ -1,0 +1,25 @@
+#!/bin/bash
+# A bash script that transfers a file from client to a server
+
+# Fxn to display the usage message
+usage() {
+  echo "Usage: $0 PATH_TO_FILE IP USERNAME PATH_TO_SSH_KEY"
+  exit 1
+}
+
+# Checking if number of arguments is less than 4, display usage
+if [ $# -lt 4 ]; then
+  usage
+fi
+
+# Assigning parameters to variables
+file_path="$1"
+server_ip="$2"
+username="$3"
+ssh_key="$4"
+
+# SCP command to transfer the file to the user's home directory on the server
+scp -i "$ssh_key" -o StrictHostKeyChecking=no "$file_path" "$username@$server_ip":~
+
+# Exit with SCP command's exit status
+exit $
