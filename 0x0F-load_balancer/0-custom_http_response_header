@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+# configure a brand new NGINX server
+sudo apt-get update
+sudo apt-get -y install nginx
+sudo ufw allow 'Nginx HTTP'
+
+sudo mkdir -p /var/www/html
+
+sudo chmod -R 755 /var/www
+echo "Hello World!" > /var/www/html/index.html
+echo "Ceci n'est pas une page" > /var/www/html/404.html
+
+sed -i "/listen 80 default_server;/a rewrite ^/redirect_me https://www.youtube.com/watch?v=z9OGF0rYlss&ab_channel=Artisax permanent;" /etc/nginx/sites-available/default
+sed -i "/listen 80 default_server;/a error_page 404 /404.html;" /etc/nginx/sites-available/default
+sed -i '14a \\tadd_header X-Served-By '"${HOSTNAME}"';' /etc/nginx/nginx.conf
+
+sudo service nginx restart
