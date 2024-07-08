@@ -1,14 +1,36 @@
 #!/usr/bin/env bash
-#Install nginx web server
-sudo apt-get update && sudo apt-get install nginx
+# This script installs and configures Nginx on Ubuntu
 
-# Start nginx service
-sudo service nginx start
+# Update package lists
+apt-get update
 
-# Create index.html with "Hello World!"
-sudo touch /var/www/html/index.html
+# Install Nginx
+apt-get install -y nginx
 
-echo "Hello World!" | sudo tee /var/www/html/index.html
+# Configure Nginx to listen on port 80
+sed -i 's/listen 80 default_server;/listen 80;/' /etc/nginx/sites-available/default
 
-# Restart Nginx to apply changes
-sudo service nginx restart
+# Create a simple HTML file with "Hello World!"
+echo "Hello World!" > /var/www/html/index.html
+
+# Start Nginx service
+/etc/init.d/nginx start
+
+# Ensure Nginx is running
+nginx_pid=$(pgrep nginx)
+if [ -z "$nginx_pid" ]; then
+    echo "Nginx failed to start. Attempting to start manually..."
+    nginx
+else
+    echo "Nginx is running with PID: $nginx_pid"
+fi
+
+# Test the configuration
+echo "Testing Nginx configuration..."
+curl -s http://localhost | grep "Hello World!"
+
+if [ $? -eq 0 ]; then
+    echo "Nginx is properly configured and serving 'Hello World!'"
+else
+    echo "Nginx configuration test failed."
+fi
