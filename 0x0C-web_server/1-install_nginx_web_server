@@ -1,15 +1,12 @@
 #!/usr/bin/env bash
 # Installs Nginx with the following configurations:
+#+    Listens on port 80.
+#+    Returns a page containing "Hello World!" when queried
+#++    at the root with a curl GET request.
 
-# Update package lists
 sudo apt-get -y update
-# Install nginx server
 sudo apt-get -y install nginx
-# Configure ubuntu firewall
 sudo ufw allow "Nginx HTTP"
-# Change owner of the file to current user
 sudo chown -R $USER:$USER /var/www/html/index.nginx-debian.html
-# Overwrite the content of the file with hello world
 sudo echo "Hello World!" > /var/www/html/index.nginx-debian.html
-# Restart nginx service
 sudo service nginx restart
