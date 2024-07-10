@@ -5,11 +5,9 @@
 apt-get update
 apt-get install -y nginx
 
-# Make Backup of the original config file
-cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.bak
+rm /etc/nginx/sites-enabled/default
 
-# Modify the default config to listen on port 80 for all IPv4 IPs
-sed -i 's/listen \[::\]:80 default_server;/listen 80 default_server;\n\tlisten [::]:80 default_server;/' /etc/nginx/sites-available/default
+ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 
 # Test the nginx configuration
 nginx -t
