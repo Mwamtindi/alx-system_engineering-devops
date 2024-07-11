@@ -1,10 +1,14 @@
 #!/usr/bin/env bash
-# A script that displays information about subdamins for a given domain
+# A script that displays information about subdomains for a given domain
+
+domain_info() {
+    dig "$1" | awk '/ANSWER SECTION:/{getline; split($1,b,"."); print "The subdomain", b[1], "is a", $4, "record and points to", $5}'
+}
 
 if [ $# -eq 1 ]; then
-    doomain="www.$1 lb-01.$1 web-01.$1 web-02.$1"
+    for subdomain in "www" "lb-01" "web-01" "web-02"; do
+        domain_info "${subdomain}.$1"
+    done
 else
-    doomain="$2.$1"
+    domain_info "$2.$1"
 fi
-
-dig $doomain | awk '/ANSWER SECTION:/{getline; split($1,b,"."); print "The subdomain", b[1], "is a", $4, "record and points to", $5}'
