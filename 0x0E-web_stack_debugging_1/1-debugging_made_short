@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # Configuring the nginx server to communicate with port 80, by using task0
-make the fix short and sweet
-sed -i 's/8080/80/g' /etc/nginx/sites-enabled/default
-pkill apache2
+
+# Creating a symbolic link
 ln -sf /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-nginx -g 'daemon off;' &
-pkill nginx
+# Start nginx service
+service nginx start
+# Kill the mmain nginx process
+kill "$(pgrep 'nginx' | head -1)"
