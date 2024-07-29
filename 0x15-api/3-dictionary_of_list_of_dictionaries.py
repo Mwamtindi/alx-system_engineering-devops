@@ -4,8 +4,8 @@ Python script that uses REST API to fetch TODO lists for all employees
 and export the data in JSON format.
 """
 
-import requests
 import json
+import requests
 
 
 if __name__ == '__main__':
