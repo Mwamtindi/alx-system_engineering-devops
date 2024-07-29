@@ -8,40 +8,19 @@ import json
 import requests
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     base_url = "https://jsonplaceholder.typicode.com/users"
+    users = requests.get(base_url).json()
 
-    # Fetch all users
-    response = requests.get(base_url)
-    users = response.json()
+    all_employees_data = {
+        user.get("id"): [{
+            "task": todo.get("title"),
+            "completed": todo.get("completed"),
+            "username": user.get("username")
+        } for todo in requests.get(f"{base_url}/{user.get('id')}/todos")
+                                   .json()]
+        for user in users
+    }
 
-    # Prepare data for JSON
-    all_employees_data = {}
-
-    for user in users:
-        employee_id = str(user['id'])
-        username = user['username']
-
-        # Fetch todos for this user
-        todo_url = f"{base_url}/{employee_id}/todos"
-        response = requests.get(todo_url)
-        tasks = response.json()
-
-        # Prepare user's tasks
-        user_tasks = []
-        for task in tasks:
-            user_tasks.append({
-                "username": username,
-                "task": task['title'],
-                "completed": task['completed']
-            })
-
-        # Add user's tasks to the main dictionary
-        all_employees_data[employee_id] = user_tasks
-
-    # Export to JSON
-    filename = "todo_all_employees.json"
-    with open(filename, 'w') as json_file:
-        json.dump(all_employees_data, json_file)
-
-    print(f"Data exported to {filename}")
+    with open("todo_all_employees.json", "w") as jsonfile:
+        json.dump(all_employees_data, jsonfile)
