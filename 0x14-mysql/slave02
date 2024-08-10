@@ -1,0 +1,9 @@
+mysql> CHANGE MASTER TO
+    MASTER_HOST='web-01',
+    MASTER_USER='replica_user',
+    MASTER_PASSWORD='replica_password',
+    MASTER_LOG_FILE='mysql-bin.000001',  -- replace with the actual file from SHOW MASTER STATUS
+    MASTER_LOG_POS=107;  -- replace with the actual position from SHOW MASTER STATUS
+
+mysql> START SLAVE;
+mysql> SHOW SLAVE STATUS\G

@@ -1,0 +1,4 @@
+mysql> GRANT REPLICATION SLAVE ON *.* TO 'replica_user'@'%' IDENTIFIED BY 'replica_password';
+mysql> FLUSH PRIVILEGES;
+mysql> FLUSH TABLES WITH READ LOCK;
+mysql> SHOW MASTER STATUS;
