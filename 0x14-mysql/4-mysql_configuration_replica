@@ -1,0 +1,16 @@
+[mysqld]
+# The unique server ID for the replica server
+server-id = 2
+
+# Disable binary logging on the replica
+# log_bin should be commented out if this is not a master-master replication
+
+# If you want to replicate only a specific database
+replicate-do-db = tyrell_corp
+
+# Relay log settings (required for replication)
+relay-log = /var/log/mysql/mysql-relay-bin.log
+relay-log-index = /var/log/mysql/mysql-relay-bin.index
+
+# Note: Ensure that the bind-address parameter is commented out or removed
+# bind-address = 127.0.0.1

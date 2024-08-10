@@ -1,0 +1,21 @@
+[mysqld]
+# The unique server ID for the primary server
+server-id = 1
+
+# Enable binary logging for replication
+log_bin = /var/log/mysql/mysql-bin.log
+
+# Binary log format (ROW is generally recommended for replication)
+binlog_format = ROW
+
+# Ensure that the binary log is retained long enough to avoid issues with replication
+expire_logs_days = 7
+
+# If you have a specific database for replication, set it here
+# binlog_do_db = tyrell_corp
+
+# Note: Don't bind MySQL to any specific IP address, comment out the bind-address parameter
+# bind-address = 127.0.0.1
+
+# Relay log settings (optional, can be used for multi-tier replication setups)
+# relay-log = /var/log/mysql/mysql-relay-bin.log
