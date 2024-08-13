@@ -3,6 +3,7 @@
 Script containing function that queries the Reddit API and returns the
 number of subscribers for a given Reddit subreddit.
 """
+
 import requests
 
 
